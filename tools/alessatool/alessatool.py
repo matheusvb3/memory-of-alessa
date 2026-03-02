@@ -127,20 +127,20 @@ def main():
     )
     annotate_parser.add_argument(
         "--vram-start",
-        type=lambda x: int(x, 0),
+        type=lambda x: x is None and None or int(x, 0),
         help="start of vram range",
-        required=True
+        default=None
     )
     annotate_parser.add_argument(
         "--vram-end",
         type=lambda x: int(x, 0),
         help="end of vram range",
-        required=True
+        default=None
     )
     annotate_parser.add_argument(
         "--elf-path",
         type=Path,
-        default=Path("rom/SLUS_202.28"),
+        default=Path("rom/SLUS_202.28/SLUS_202.28"),
         help="path to the elf file"
     )
     annotate_parser.add_argument(
@@ -152,7 +152,7 @@ def main():
     annotate_parser.add_argument(
         "--out-path",
         type=Path,
-        default=Path("asm/decorated.s"),
+        default=Path("decorated.s"),
         help="path to write the annotated output"
     )
     annotate_parser.add_argument(
