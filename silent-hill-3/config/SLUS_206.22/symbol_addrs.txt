@@ -187,6 +187,10 @@ utilHeapFree                                                                    
 utilHeapMalloc                                                                   = 0x1c1c20;
 utilHeapInit                                                                     = 0x1c1bb0;
 
+// dbfntprint.c
+d = 0x00366D60; // size:0x28
+printline = 0x01DBB80;
+
 // ...
 sh3_CharacterDrawOne = 0x001d13d0;
 // fontPrintStrNum = 0x00158d20;
