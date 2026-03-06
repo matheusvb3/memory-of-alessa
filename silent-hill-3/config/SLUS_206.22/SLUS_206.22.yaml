@@ -75,7 +75,7 @@ segments:
       - [0x117180, asm,     text_2_0]
       - [0x1261a0, asm,     Enemy/en_smb]        # SPLIT_WORM
       - [0x12ef30, asm,     text_2_C]
-      - [0x12f0f0, c,       Chacter/en_common]
+      - [0x12f0f0, c,       Enemy/en_common]
       - [0x130590, asm,     Enemy/en_aid]        # CLOSER
       - [0x131040, asm,     text_2_1]
       - [0x141b20, asm,     Effect2/hh_class_6]
@@ -120,7 +120,7 @@ segments:
       - [0x2be020, rodata,  rodata_1]
       - [0x2be940, .rodata, Font/font]
       - [0x2be970, rodata,  rodata_2]
-      - [0x2c5080, .rodata, Chacter/en_common]
+      - [0x2c5080, .rodata, Enemy/en_common]
       - [0x2c5110, rodata,  rodata_3]
       - [0x2c8790, .rodata, Enemy/en_lix]
       - [0x2c8910, rodata,  rodata_4]

@@ -1,7 +1,7 @@
 #ifndef M3_SC_H
 #define M3_SC_H
 
-#include "character.h"
+#include "Chacter/character.h"
 
 extern SubCharacter* D_003DAD54;
 extern void* D_003DAD50;

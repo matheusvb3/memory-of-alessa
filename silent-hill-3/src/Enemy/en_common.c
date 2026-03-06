@@ -14,11 +14,11 @@ void func_0022EB70(SubCharacter* scp) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EBD0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EBD0);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EC70);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EC70);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022ECC0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022ECC0);
 
 void func_0022ED30(void) {
     int i;
@@ -35,17 +35,17 @@ void func_0022ED30(void) {
     } while (i < 0x20);
 }
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022ED90);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022ED90);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EE20);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EE20);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EEB0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EEB0);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EF10);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EF10);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EF30);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EF30);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022EF40);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022EF40);
 
 u_int func_0022EFD0(u_int mask) {
     return D_01F2A564 & mask;
@@ -67,43 +67,43 @@ void func_0022F040(void) {
     D_01F2A564 &= ~0x80;
 }
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F060);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F060);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F070);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F070);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F0E0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F0E0);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F130);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F130);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F150);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F150);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F170);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F170);
 
 void func_0022F1D0(void) {
     D_01F2A581 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F1E0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F1E0);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F220);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F220);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F270);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F270);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F390);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F390);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F4C0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F4C0);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F630);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F630);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F870);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F870);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022F9A0);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022F9A0);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022FA20);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022FA20);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022FA60);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022FA60);
 
-INCLUDE_ASM("asm/nonmatchings/Chacter/en_common", func_0022FA90);
+INCLUDE_ASM("asm/nonmatchings/Enemy/en_common", func_0022FA90);
 
 void func_0022FAC0(EnemyWork* work) {
     switch (work->scp->kind) {
