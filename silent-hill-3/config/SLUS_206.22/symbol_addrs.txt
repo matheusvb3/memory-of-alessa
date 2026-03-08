@@ -187,6 +187,9 @@ sceVif1PkReserve = 0x001203D0;
 sceVif1PkRef = 0x00120128;
 sceMpegCreate = 0x0011dd20;
 sceMpegDelete = 0x011DF28;
+sceSifSetDma = 0x0155DF0;
+sceSifDmaStat = 0x0155DE0;
+FlushCache = 0x0100CE0;
 
 // sdk
 litodp = 0x00124b50;

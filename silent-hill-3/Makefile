@@ -44,7 +44,7 @@ LINK ?= 1
 
 SPECIAL_OPT_LEVEL = -O0,p
 DEFAULT_OPT_LEVEL = -O3,p
-SPECIAL_OPT_FILES = pss_videodec.c
+SPECIAL_OPT_FILES = pss_videodec.c fsserve.c
 OPT_LEVEL = $(if $(filter $(notdir $<),$(SPECIAL_OPT_FILES)),$(SPECIAL_OPT_LEVEL),$(DEFAULT_OPT_LEVEL))
 
 SOURCE_OVERLAY_ARCHIVE := $(ROM)/B0.MFA
