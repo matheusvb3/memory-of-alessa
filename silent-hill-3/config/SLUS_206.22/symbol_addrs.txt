@@ -189,11 +189,17 @@ sceMpegCreate = 0x0011dd20;
 sceMpegDelete = 0x011DF28;
 sceSifSetDma = 0x0155DF0;
 sceSifDmaStat = 0x0155DE0;
+sceMpegIsEnd = 0x0011E070;
+sceMpegReset = 0x0011E090;
 FlushCache = 0x0100CE0;
 
 // sdk
 litodp = 0x00124b50;
 dpmul = 0x00124618;
+
+// cscvu1.c
+cscVu1SetTag = 0x002B5460;
+csct = 0x01F67FC0; // type:s32
 
 // sh_kt_vif0.c
 ktVif0Wait2 = 0x001d8ba0;
@@ -442,7 +448,8 @@ switchThread = 0x002B6F50;
 WaitSemaPss = 0x00311390;
 voBufReset = 0x002B9510;
 voBuf = 0x01F67FE0; // size:24
-// @49 = 0x0039DC18; // visibility:local size:0x4
+@49 = 0x0039DC18; // size:0x4
+@91 = 0x0039DC20; // type:asciz
 
 // pss_vibuf.c
 getFIFOindex = 0x002b7a30;

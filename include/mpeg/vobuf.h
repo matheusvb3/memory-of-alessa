@@ -6,23 +6,22 @@
 #include "common.h"
 #include "mpeg/libmpeg.h"
 #include "mpeg/defs.h"
-
-#define N_GSBUF 2
+#include "mpeg/cscvu1.h"
+#include "libipu.h"
 
 #define VOBUF_STATUS_ 0
 #define VOBUF_STATUS_TOPDONE 1
 #define VOBUF_STATUS_FULL 2
 
-typedef struct
-{
-    u_char v[MAX_WIDTH * MAX_HEIGHT * 4];
+typedef struct {
+    u_char v[MAX_MBX * MAX_MBY * sizeof(sceIpuRAW8)];
 } VoData;
 
 typedef struct
 {
     int status;
-    int dummy[15];
-    u_int v[N_VOBUF][bound((N_LDTAGS + 100) * 4, 64)];
+    u_int* v;
+    int dummy[14];
 } VoTag;
 
 typedef struct

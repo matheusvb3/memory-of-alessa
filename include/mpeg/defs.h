@@ -3,12 +3,15 @@
 
 #include "common.h"
 
-#define MAX_WIDTH 384
-#define MAX_HEIGHT 128
+#define N_VOBUF 5
+
+#define MAX_WIDTH 512
+#define MAX_HEIGHT 512
+
+#define MAX_MBX		(MAX_WIDTH/16)
+#define MAX_MBY		(MAX_HEIGHT/16)
 
 #define bound(val, x) ((((val) + (x) - 1) / (x)) * (x))
-
-#define N_VOBUF 1
 
 #define N_LDTAGS (MAX_WIDTH / 16 * MAX_HEIGHT / 16 * 6 + 10)
 

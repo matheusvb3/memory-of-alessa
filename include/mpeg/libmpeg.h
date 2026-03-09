@@ -5,6 +5,11 @@
 
 #include "common.h"
 
+/* Picture Structure */
+#define SCE_MPEG_TOP_FIELD  0x1
+#define SCE_MPEG_BOT_FIELD  0x2
+#define SCE_MPEG_FRAME      0x3
+
 #define SCE_MPEG_BUFFER_SIZE(w, h) ((w) * (h) * 9 / 2 + 512 + 24 * 64 + 8192)
 
 typedef enum

@@ -134,59 +134,77 @@ void videoDecMain(VideoDec* vd) {
     videoDecSetState(vd, VD_STATE_END);
 }
 
-#ifdef NON_MATCHING
-int decBs0(VideoDec *vd)
-{
+int decBs0(VideoDec *vd) {
     VoData *voData;
-    int status;
-    int i;
-    int image_w;
-    int image_h;
+    sceIpuRAW8 *raw8;
+    int ret;
+    int status = 1;
+    sceMpeg *mp = &sys_mpeg;
+    int picture_structure;
+    extern int csct;
 
-    status = 1;
+    while (sceMpegIsEnd(&sys_mpeg) == 0) {
+        if (videoDecGetState(vd) == VD_STATE_ABORT) {
+            status = -1;
+            debugPrintf("decode thread: aborted\n");
+            break;
+        }
 
-    while (sceMpegIsEnd(&sys_mpeg) == 0)
-    {
-        if (videoDecGetState(vd) == VD_STATE_ABORT)
-        {
+        while ((voData = voBufGetData(&voBuf)) == 0) {
+            switchThread();
+        }
+        raw8 = (sceIpuRAW8*) voData->v;
+
+        if (viBufAddDMA(&vd->vibuf) != 1) {
+            debugPrintf("viBufAddDMA() failed\n");
             status = -1;
             break;
         }
 
-        while ((voData = voBufGetData(&voBuf)) == 0)
-        {
-            switchThread();
+        WaitSemaPss();
+        ret = sceMpegGetPictureRAW8(sys_mpeg, raw8, MAX_WIDTH/16 * MAX_HEIGHT/16);
+        SignalSemaPss();
+
+        if (ret < 0) {
+            debugPrintf("sceMpegGetPictureRAW8() failed\n");
+            status = -1;
+            break;
         }
 
-        if (sceMpegGetPicture(&sys_mpeg, (sceIpuRGB32*)voData->v, MAX_WIDTH / 16 * MAX_HEIGHT / 16) < 0)
-        {
+        picture_structure = (int)((sys_mpeg.flags >> 3) & 3);
+        if (picture_structure == SCE_MPEG_FRAME) {
+            csct = (sys_mpeg.flags & 0x180) ? CSCVU1_PROG_FRAME : CSCVU1_INTER_FRAME;
+        } else {
+            csct; // @hack?
+            debugPrintf("pss_videodec.c:342> assert:(%s)\n", "@576_0x0039C028");
+        }
+
+        if (ret < 0) {
             ErrMessage("sceMpegGetPicture() decode error");
         }
 
-        if (sys_mpeg.frameCount == 0)
-        {
-            image_w = sys_mpeg.width;
-            image_h = sys_mpeg.height;
+        if (sys_mpeg.frameCount == 0) {
+            int i;
 
-            for (i = 0; i < voBuf.size; i++)
-            {
-              setImageTag(voBuf.tag[i].v[0], voBuf.data[i].v, 0, image_w, image_h);
-              setImageTag(voBuf.tag[i].v[1], voBuf.data[i].v, 1, image_w, image_h);
+            for (i = 0; i < N_VOBUF; i++) {
+                cscVu1SetTag(
+                    voBuf.tagInter[i].v,
+                    0,
+                    voBuf.data[i].v,
+                    sys_mpeg.width,
+                    sys_mpeg.height
+                );
             }
         }
 
         voBufIncCount(&voBuf);
-
         switchThread();
     }
 
-    sceMpegReset(&sys_mpeg);
-
+    sceMpegReset(mp);
     return status;
 }
-#else
-INCLUDE_ASM("asm/nonmatchings/movie/pss_videodec", decBs0);
-#endif
+
 
 int mpegError(sceMpeg *mp, sceMpegCbDataError *cberror, void *anyData)
 {

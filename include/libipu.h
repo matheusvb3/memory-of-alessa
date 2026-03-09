@@ -20,4 +20,10 @@ typedef struct
     u_int ipuctrl;
 } sceIpuDmaEnv;
 
+typedef struct {
+	u_char y[256];
+	u_char cb[64];
+	u_char cr[64];
+} sceIpuRAW8;
+
 #endif // SCE_LIBIPU_H
