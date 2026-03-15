@@ -88,7 +88,7 @@ inline void vec_add(void* x, void* y, void* out) {
         lqc2 vf5, 0(%1)\n\
         vadd.xyzw vf4, vf4, vf5\n\
         sqc2 vf4, 0(%2)"
-        : "r"(x), "r"(y): "r"(out));
+        : "=r"(x), "=r"(y): "r"(out));
 }
 
 extern void * memcpy(void *__dest, void *__src, u_int __n);
