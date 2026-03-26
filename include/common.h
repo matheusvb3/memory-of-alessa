@@ -74,10 +74,6 @@ typedef union Q
     signed int iv[4];      // offset 0x0, size 0x10
 } Q;
 
-static inline int clamp(int b, int i) {
-    asm("slt $t7, %1, %0; movn %0, %1, $t7" : "=r"(b) : "r"(i) : ); return b;
-}
-
 inline void vec_copy(void* dst, void* src) {
     asm volatile ("\
          lq t7, 0(%1)\n\
@@ -93,7 +89,6 @@ inline void vec_add(void* x, void* y, void* out) {
         sqc2 vf4, 0(%2)"
         : "=r"(x), "=r"(y): "r"(out));
 }
-
 extern void * memcpy(void *__dest, void *__src, u_int __n);
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "common.h"
+#include "sh2_common.h"
 #include "Chacter/character.h"
 
 #define HEALTH_DRINK 1
