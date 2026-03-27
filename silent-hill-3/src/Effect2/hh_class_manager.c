@@ -70,9 +70,36 @@ INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_manager", func_00141650);
 
 INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_manager", Instance_Search_from_InstanceHandle);
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_manager", Instance_DesignateClassDescriptorAttach_Count);
+static u_int Instance_DesignateClassDescriptorAttach_Count(Object_InstanceTable_Infomeation* pInfo, u_int Class_Descriptor) {
+    u_int result = 0; 
+    Object_Instance* pInstance = pInfo->pHierarchyTable[Class_Descriptor];
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_manager", InstanceHandle_Get_from_ClassDescriptor_and_AttachCount);
+    while(pInstance != NULL){
+        result++;
+        pInstance = pInstance->pNext;
+    }
+
+    return result;
+}
+
+
+static u_int InstanceHandle_Get_from_ClassDescriptor_and_AttachCount(Object_InstanceTable_Infomeation* pInfo, u_int Class_Descriptor, u_int CountIndex) {
+    u_int result = 0; 
+    u_int count = 0;
+    Object_Instance* pInstance = pInfo->pHierarchyTable[Class_Descriptor];
+
+    while(pInstance != NULL){
+        if (CountIndex == count) {
+            result = pInstance->hInstance;
+            break;
+        }
+        
+        count++;
+        pInstance = pInstance->pNext;
+    }
+
+    return result;
+}
 
 INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_manager", Instance_Create);
 
