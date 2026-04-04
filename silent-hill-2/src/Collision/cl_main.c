@@ -285,8 +285,19 @@ static CL_SELECT_MAP* clGetHitSectListMOVEInDoor(void) {
     return clSelectMap;
 }
 
-
-INCLUDE_ASM("asm/nonmatchings/Collision/cl_main", clCheckHitEyes);
+void clCheckHitEyes(struct _CL_VHIT_RESULT * res /* r2 */, unsigned int id /* r2 */, float * st /* r2 */, float * ed /* r2 */, signed int thru /* r2 */) {
+    switch (thru) {
+        case 1:
+            clCheckHitEyeVector(res, id, st, ed);
+            return;
+        case 0:
+            clCheckHitEyeVectorNoThru(res, id, st, ed);
+            return;
+        case 2:
+            clCheckHitEyeVectorAllNoThru(res, id, st, ed);
+            return;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/Collision/cl_main", clCheckHitEyesOnlyFloor);
 

@@ -177,6 +177,8 @@ void clAddDynamicFloor(struct _CL_HITPOLY_PLANE * pl /* r2 */);
 
 int clCheckSubColumnToColumn(struct _CL_HITRESULT * result /* r2 */, float (* clm0)[4] /* r2 */, float (* clm1)[4] /* r2 */);
 
+void clCheckHitEyes(struct _CL_VHIT_RESULT * res /* r2 */, unsigned int id /* r2 */, float * st /* r2 */, float * ed /* r2 */, signed int thru /* r2 */);
+
 void clCheckHitEyesOnlyFloor(struct _CL_VHIT_RESULT * res /* r19 */, int unknown, float * sp /* r18 */, float * ep /* r17 */);
 
 #endif CL_MAIN_H

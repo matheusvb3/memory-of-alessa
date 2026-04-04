@@ -648,7 +648,6 @@ typedef struct _CL_HITPOLY_COLUMN
     float p[2][4];  // offset 0x10, size 0x20
 } CL_HITPOLY_COLUMN;
 
-// E:\work\sh2(CVS全取得)\src\Event\stage\stg_end_dog.c
 typedef struct PAD_3D
 {
     // total size: 0x6
@@ -660,7 +659,7 @@ typedef struct PAD_3D
     u_char rturn180;  // offset 0x5, size 0x1
 } PAD_3D;
 
-// E:\work\sh2(CVS全取得)\src\Event\stage\stg_end_dog.c
+
 typedef struct PAD_2D
 {
     // total size: 0x8
@@ -669,7 +668,7 @@ typedef struct PAD_2D
     float dir;           // offset 0x4, size 0x4
 } PAD_2D;
 
-// E:\work\sh2(CVS全取得)\src\Event\stage\stg_end_dog.c
+
 typedef struct PAD_INFO
 {
     // total size: 0x20
@@ -703,7 +702,7 @@ typedef struct PAD_INFO
     };
 } PAD_INFO;
 
-// E:\work\sh2(CVS全取得)\src\Event\stage\stg_end_dog.c
+
 typedef struct shPlayerWork
 {
     // total size: 0x540
