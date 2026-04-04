@@ -86,6 +86,23 @@ inline void vec_add(void* x, void* y, void* out) {
         : "=r"(x), "=r"(y): "r"(out));
 }
 
+inline void vec_sub(void* x, void* y, void* out) {
+    asm ("\
+        lqc2 vf4, 0(%0)\n\
+        lqc2 vf5, 0(%1)\n\
+        vsub.xyzw vf4, vf4, vf5\n\
+        sqc2 vf4, 0(%2)"
+    : : "r"(x), "r"(y), "r"(out));
+}
+
+inline float float_min(float x, float y) {
+    asm("min.s %0, %1, %2" : "=f"(x) : "f"(x), "f"(y) : ); return x;
+}
+
+inline float float_max(float x, float y) {
+    asm("max.s %0, %1, %2" : "=f"(x) : "f"(x), "f"(y) : ); return x;
+}
+
 inline void mat_copy(void *dst, void *src) {
     asm volatile ("\
         lq $t6, 0(%1)\n\
