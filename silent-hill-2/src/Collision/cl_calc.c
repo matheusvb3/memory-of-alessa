@@ -30,5 +30,5 @@ void clCalcPlaneEquation(CL_HITPOLY_PLANE * pl, float * pparam) {
           vaddz.x         $vf4, $vf4, $vf4z\n\
           vsub.w          $vf6, $vf6, $vf6 \n\
           vsubx.w         $vf6, $vf6, $vf4x\n\
-          sqc2            $vf6, 0(%1)" : "=r"(p) : "f"(pparam));
+          sqc2            $vf6, 0(%1)" : "+r"(p) : "r"(pparam));
 }
