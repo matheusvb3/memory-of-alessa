@@ -18,6 +18,8 @@ SECTION_ALIGNMENT_PAIRS: list[tuple[str, int]] = [
     (".bss", 0x10),
 ]
 
+TRACKED_SEGMENT_TYPES = ["asm", "c", "data", "rodata"]
+
 @dataclass
 class GenerationArgs:
     config_path: Path
@@ -171,7 +173,7 @@ def generate_objdiff_units(args: GenerationArgs):
             continue
         if segment.name == "crt0":
             continue
-        if segment_type != "asm" and segment_type != "c":
+        if segment_type not in TRACKED_SEGMENT_TYPES:
             continue
         if not parent or parent.type != "code":
             continue
