@@ -1,7 +1,7 @@
 #ifndef HH_CLASS_WRAPPER_H
 #define HH_CLASS_WRAPPER_H
 
-#include "common.h"
+#include "sh2_common.h"
 
 #define PRIMITIVE_X_RANGE 1024.0f
 #define PRIMITIVE_Y_RANGE 1024.0f

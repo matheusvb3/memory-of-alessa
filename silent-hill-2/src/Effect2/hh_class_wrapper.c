@@ -1,4 +1,9 @@
 #include "Effect2/hh_class_wrapper.h"
+#include "GFW/sh2_DrawEnvData.h"
+#include "view/vb_main.h"
+#include "Event/item.h"
+#include "shGs/sh2gfw_GS_NewLoopEnv.h"
+#include "hh_math_wrapper.h"
 
 static void ViewFrustum_Primitive_ClipMatrix_Create(void);
 static void ViewFrustum_BoundingBox_ClipMatrix_Create(void);
@@ -117,54 +122,148 @@ INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_Transfo
 
 INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_Point_Clip_Judge);
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_Matrix_Group_Update);
-
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_ViewFrustum_Primitive_ClipMatrix_Get);
-
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_ViewFrustum_ClipMatrix_Get);
-
-void HH_ClassWrapper_AlwaysFront_WorldView_Matrix_Get(sceVu0FMATRIX AlwaysFront_WorldView_Matrix) {
-    sceVu0CopyMatrix(AlwaysFront_WorldView_Matrix, _pWork->AlwaysFront_WorldView_Matrix);
+void HH_ClassWrapper_Matrix_Group_Update(void) {
+    
+    ViewFrustum_Primitive_ClipMatrix_Create();
+    
+    
+    ViewFrustum_BoundingBox_ClipMatrix_Create();
+    
+    
+    AlwaysFront_WorldView_Matrix_Create();
 }
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_WorldViewMatrix_Get);
+void HH_ClassWrapper_ViewFrustum_Primitive_ClipMatrix_Get(sceVu0FMATRIX ViewFrustum_Primitive_ClipMatrix) {
+    sceVu0CopyMatrix(ViewFrustum_Primitive_ClipMatrix, _pWork->ViewFrustum_Primitive_ClipMatrix);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_ViewScreenMatrix_Get);
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_WorldScreenMatrix_Get);
+void HH_ClassWrapper_ViewFrustum_ClipMatrix_Get(sceVu0FMATRIX ViewFrustum_Primitive_ClipMatrix) {
+    sceVu0CopyMatrix(ViewFrustum_Primitive_ClipMatrix,  _pWork->ViewFrustum_Primitive_ClipMatrix);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_ViewDirection_Get);
+void HH_ClassWrapper_AlwaysFront_WorldView_Matrix_Get(sceVu0FMATRIX AlwaysFront_WorldView_Matrix) {
+    sceVu0CopyMatrix(AlwaysFront_WorldView_Matrix,  _pWork->AlwaysFront_WorldView_Matrix);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_LightDirection_Get);
+void HH_ClassWrapper_WorldViewMatrix_Get(sceVu0FMATRIX WorldView_Matrix) {
+    sceVu0CopyMatrix(WorldView_Matrix, VbWvsMatrix.wvm);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_ViewingFrustumParamerter_NearZ_Get);
+void HH_ClassWrapper_ViewScreenMatrix_Get(sceVu0FMATRIX ViewScreen_Matrix) {
+    sceVu0CopyMatrix(ViewScreen_Matrix,  cam0.view_screen);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_ViewingFrustumParamerter_FarZ_Get);
+void HH_ClassWrapper_WorldScreenMatrix_Get(sceVu0FMATRIX WorldScreen_Matrix) {
+    sceVu0CopyMatrix(WorldScreen_Matrix,  cam0.world_screen);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_FogParameter_A_Get);
+void HH_ClassWrapper_ViewDirection_Get(float* View_Direction) {
+    sh2gde_getCameraDir(View_Direction);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_FogParameter_B_Get);
+void HH_ClassWrapper_LightDirection_Get(float* Light_Direction) {
+    float tmp[4];
+    shGetJamesLightPos(&tmp, Light_Direction);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_Float_Clamp);
+float HH_ClassWrapper_ViewingFrustumParamerter_NearZ_Get(void) {
+    return Env_ctl.camera_parms[3];
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_AmbientColor_Get);
+float HH_ClassWrapper_ViewingFrustumParamerter_FarZ_Get(void) {
+    return Env_ctl.camera_parms2[2];
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_SpotLight_Enable_Check);
+float HH_ClassWrapper_FogParameter_A_Get(void) {
+    return (Env_ctl.fogparm.fl32[0] * Env_ctl.fogparm.fl32[2] - Env_ctl.fogparm.fl32[1] * Env_ctl.fogparm.fl32[3]) / (Env_ctl.fogparm.fl32[0] - Env_ctl.fogparm.fl32[1]);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_SpotLight_EnvironmentParameter_Get);
+float HH_ClassWrapper_FogParameter_B_Get(void) {
+    return (Env_ctl.fogparm.fl32[0] * Env_ctl.fogparm.fl32[1] * (Env_ctl.fogparm.fl32[3] - Env_ctl.fogparm.fl32[2])) / (Env_ctl.fogparm.fl32[0] - Env_ctl.fogparm.fl32[1]);
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_SpotLight_ColorRatio_Calculator);
+float HH_ClassWrapper_Float_Clamp(float Src_Value, float Min, float Max) {
+    return float_min(float_max(Src_Value, Min), Max);
+}
+
+void HH_ClassWrapper_AmbientColor_Get(float* Ambient_Color) {
+    sceVu0ScaleVector(Ambient_Color, Env_ctl.ambient, 2.0f);
+}
+
+u_int HH_ClassWrapper_SpotLight_Enable_Check(void) {
+    return item.light_switch;
+}
+
+void HH_ClassWrapper_SpotLight_EnvironmentParameter_Get(float* Light_Position, float* Light_Direction, float* Light_Color, float* Parameter) {
+    float tmp[4];
+
+    sh2gde_getspotKTParams(Light_Position, Light_Direction, Light_Color, tmp, 0);
+    
+    kari_sh2gde_getspotParams(tmp, tmp, Parameter);
+}
+
+float HH_ClassWrapper_SpotLight_ColorRatio_Calculator(float* Light_Position, float* Light_Direction, float* Vertex, float Cos_Value, float Far_Z) {
+    float result = 0.0f; // r20
+    float vec[4]; // r29+0x30
+    float cos_phai; // r29+0x40
+    float vec_volume; // r21
+
+    sceVu0SubVector(vec, Vertex, Light_Position);
+    vec_volume = HH_MathWrapper_Sqrtf(sceVu0InnerProduct(vec, vec));
+
+    
+    if (vec_volume <= Far_Z) {
+        sceVu0Normalize(vec, vec);
+        cos_phai = sceVu0InnerProduct(vec, Light_Direction);
+
+        
+        if (cos_phai > Cos_Value) {
+            float ratio_0 = 1.0f - vec_volume / Far_Z;
+            float ratio_1 = (cos_phai - Cos_Value) / (1.0f - Cos_Value);
+            result = ratio_0 * ratio_1;
+        }
+    }
+    return result;
+}
 
 INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_SpecularRatio0_Calculator);
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_SpecularRGBA_Add_BaseRGBA);
+void HH_ClassWrapper_SpecularRGBA_Add_BaseRGBA(s32* iRGBA, float* RGBA_Base, float* Specular_RGBA_Base, float Specular_Ratio) {
+    asm ("lqc2 $vf30, 0(%1)\n\
+          lqc2 $vf31, 0(%2)\n\
+          mfc1 t0, %3\n\
+          mfc1 t1, %4\n\
+          qmtc2.ni t0, $vf29\n\
+          ctc2.ni t1, $vi21\n\
+          vmulx.xyzw $vf31, $vf31, $vf29x\n\
+          vadd.xyzw $vf31, $vf30, $vf31\n\
+          vmaxx.xyzw $vf31, $vf31, $vf0x\n\
+          vminii.xyzw $vf31, $vf31, I\n\
+          vftoi0.xyzw $vf31, $vf31\n\
+          sqc2 $vf31, 0(%0)"
+    : "=r"(iRGBA) : "r"(RGBA_Base), "r"(Specular_RGBA_Base), "f"(Specular_Ratio), "f"(255.0f) : "t0", "t1");
+}
 
 INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_MemoryCopy128Align_DesignateCycle);
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_GS_EnvironmentRegister_Frame_AlphaMask_Get);
+u_long128* HH_ClassWrapper_GS_EnvironmentRegister_Frame_AlphaMask_Get(void) {
+    return sh2gfw_Get_FrameAlphaRegAddr();
+}
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_GS_EnvironmentRegister_Frame_NoMask_Get);
+u_long128* HH_ClassWrapper_GS_EnvironmentRegister_Frame_NoMask_Get(void) {
+    return sh2gfw_Get_FrameNormalRegAddr();
+}
 
 INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_Packet_ADC_Flag_OnceMore_Set);
 
-INCLUDE_ASM("asm/nonmatchings/Effect2/hh_class_wrapper", HH_ClassWrapper_JMS_WorldPosition_Get);
+u_int HH_ClassWrapper_JMS_WorldPosition_Get(float* Position) {
+    u_int result = 0;
+    
+    if (sh2jms.player != NULL) {
+        sceVu0CopyVector(Position, &sh2jms.player->pos.x);
+        result = 1;
+    }
+    
+    return result;
+}
